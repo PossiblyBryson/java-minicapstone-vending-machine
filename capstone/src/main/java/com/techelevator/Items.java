@@ -6,7 +6,7 @@ public class Items {
 private String name;
 private BigDecimal price;
 public String position;
-public int quantity;
+public int quantity = 5;
 public String returnMessage;
 
     public void setName(String name) {
@@ -43,11 +43,12 @@ public String returnMessage;
     public String getReturnMessage(){
         return  this.returnMessage;
     }
-    public Items (String name,BigDecimal price, String position, int quantity, String returnMessage){
+    public Items (String name,BigDecimal price, String position, String returnMessage){
         this.name = name;
         this.price = price;
         this.position = position;
-        this.quantity = quantity;
         this.returnMessage = returnMessage;
     }
+
+
 }
