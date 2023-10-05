@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Vending {
-    private List<Items> items;
-    private List<Currency> Currency;
+    private List<Items> items = new ArrayList<>();
+    private List<Currency> Currency = new ArrayList<>();
 
     public void setItems(Items item) {
         items.add(item);
@@ -35,11 +35,14 @@ public class Vending {
         Scanner userInput = new Scanner(System.in);
         String mainMenuOption = userInput.nextLine();
         if (mainMenuOption.equals("1")) {
-            System.out.println("You entered 1");
+           // outs puts the inventory list to the user
             this.createItems();
-            System.out.println(this.items);
+            for(Items item: this.items){
+                System.out.println(item.position + " " +  item.getName() + " " + item.getPrice() );
+            }
 
         } else if (mainMenuOption.equals("2")) {
+            //purchase menu
             System.out.println("You entered 2");
 
         } else if (mainMenuOption.equals("3")) {
@@ -66,13 +69,27 @@ public class Vending {
                 String[] fields = line.split("\\|");
 
                 if(fields[3].equals("Duck")){
-                    duckCount++;
-                    Duck newDuck = new Duck(fields[1],new BigDecimal(fields[2]),fields[0]);
+                    String priceString = fields[2];
+                    BigDecimal price = new BigDecimal(priceString);
+                    Duck newDuck = new Duck(fields[1],price,fields[0]);
                     this.setItems(newDuck);
 
+                }else if(fields[3].equals("Penguin")) {
+                    String priceString = fields[2];
+                    BigDecimal price = new BigDecimal(priceString);
+                    Penguin newPenguin = new Penguin(fields[1], price, fields[0]);
+                    this.setItems(newPenguin);
+                }else if(fields[3].equals("Cat")) {
+                    String priceString = fields[2];
+                    BigDecimal price = new BigDecimal(priceString);
+                    Cat newCat = new Cat(fields[1], price, fields[0]);
+                    this.setItems(newCat);
+                }else if(fields[3].equals("Pony")) {
+                    String priceString = fields[2];
+                    BigDecimal price = new BigDecimal(priceString);
+                    Pony newPony = new Pony(fields[1], price, fields[0]);
+                    this.setItems(newPony);
                 }
-
-
 
             }
 

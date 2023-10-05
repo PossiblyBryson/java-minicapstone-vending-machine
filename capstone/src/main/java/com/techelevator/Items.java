@@ -32,7 +32,7 @@ public String returnMessage;
         return this.name;
     }
     public BigDecimal getPrice(){
-        return this.getPrice();
+        return this.price;
     }
     public String getPosition(){
         return this.position;
