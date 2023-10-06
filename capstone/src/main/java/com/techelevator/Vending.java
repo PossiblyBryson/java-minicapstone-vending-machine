@@ -112,6 +112,8 @@ public class Vending {
 
     }
     public void getPurchaseMenu(){
+        System.out.println("Current money provided: " + transaction.getAmountInMachine());
+        System.out.println();
         //Current Money Provided displays here
             System.out.println("(1) Feed Money");
             System.out.println("(2) Select Product");
@@ -119,6 +121,7 @@ public class Vending {
             getPurchaseMenuUserInput();
     }
     Transaction transaction = new Transaction();
+
 
     public void getPurchaseMenuUserInput(){
 
@@ -128,13 +131,15 @@ public class Vending {
                 if (purchaseMenuTwo.equals("1")){
                     //Feed money into the machine in whole dollar amounts
                     transaction.feedMoney();
+                    this.getPurchaseMenu();
 
                 }
                 if (purchaseMenuTwo.equals("2")){
-                    System.out.println("Please enter your selection:");
+
                     for(Items item: this.items){
-                        System.out.println(item.position + "| " +  item.getName() + " " + item.getPrice() );
+                        System.out.println(item.position + "| " +  item.getName() + " " + item.getPrice() + " " + "Quanity in stock: " + item.getQuantity() );
                     }
+                    System.out.println("Please enter your selection:");
                     String userPurchase = userInput.nextLine();
 
                         boolean isTargetProduct = false;
@@ -144,7 +149,7 @@ public class Vending {
 
                             for (Items item : this.items) {
                                 if (item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity != 0 ) {
-                                    System.out.println(item.getName()+" "+item.getPosition()+" "+item.getPrice());
+                                    System.out.println(item.getPosition()+ " " + item.getName()+" " + item.getPrice());
                                     isTargetProduct = true;
                                     //Sell them the toy
                                 } else if(item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity == 0 ){

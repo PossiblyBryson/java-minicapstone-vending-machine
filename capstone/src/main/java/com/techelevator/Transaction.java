@@ -16,8 +16,9 @@ public class Transaction {
     private BigDecimal balance = new BigDecimal(0);
     private BigDecimal tDelta = new BigDecimal(0);
     private BigDecimal change = new BigDecimal(0);
-    private BigDecimal amountFed = new BigDecimal(0);
     private BigDecimal amountInMachine = new BigDecimal(0);
+
+
 
 
     public BigDecimal getAmountInMachine(){
@@ -29,7 +30,7 @@ public class Transaction {
 
 
     public BigDecimal getAmountFed() {
-        return amountFed;
+        return amountInMachine;
     }
 
     public BigDecimal getChange() {
@@ -58,7 +59,7 @@ public class Transaction {
     }
 
     public void setAmountFed(BigDecimal amountFed) {
-        this.amountFed = amountFed;
+        this.amountInMachine = amountFed;
     }
 
     public void setChange(BigDecimal change) {
@@ -87,36 +88,40 @@ public class Transaction {
 
 
 
-
-
-
-
-
-
-
-
-
     public void feedMoney(){
         Scanner userInput = new Scanner(System.in);
 
         System.out.println("Please enter amount to be Fed");
         String amountInput = userInput.nextLine();
-        BigDecimal amountToBeFed = new BigDecimal(amountInput);
-        tDelta = (amountFed.subtract(amountToBeFed)).abs();
-        this.amountInMachine = this.amountInMachine.add(amountFed);
+        BigDecimal amountToBeFed = null;
 
-        this.amountFed = this.getAmountFed().add(amountToBeFed);
-        // writer.println(this.getTime() + " " + this.getDate() + " ");
-        System.out.println(getAmountFed());
+
+        try {
+            amountToBeFed = new BigDecimal(amountInput);
+
+            // Ensure that amountToBeFed is positive, you may want to add this check
+            if (amountToBeFed.compareTo(BigDecimal.ZERO) <= 0) {
+                System.out.println("Invalid input. Please enter a positive amount.");
+                return; // Exit the method if the input is invalid.
+            }
+            // Update the amountInMachine
+            this.amountInMachine = this.amountInMachine.add(amountToBeFed);
+
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid input. Please enter a valid numeric amount.");
+
+        }
+
 
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/log.txt", true));
-            writer.println(this.getDate() + " " + this.getTime() + " FEED MONEY: " + this.getAmountFed() + " " + this.getAmountInMachine());
+            writer.println(this.getDate() + " " + this.getTime() + " FEED MONEY: " + amountToBeFed + " " + this.getAmountInMachine());
             writer.flush();// testing
         } catch (IOException e) {
             throw new RuntimeException("Do not pass go");
 
         }
+
 
     }
     public void dispense(Items item){
