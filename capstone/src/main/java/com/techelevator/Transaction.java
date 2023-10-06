@@ -131,6 +131,7 @@ public class Transaction {
         this.amountInMachine = this.amountInMachine.subtract(item.getPrice());//
         //writer.println();
         // this is currently working and does out put and dispense item to console as well as update machine balance
+        // it is also properly updating the quantity in stock and reflected on the display
 
 
     }

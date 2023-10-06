@@ -102,13 +102,11 @@ public class Vending {
                     Pony newPony = new Pony(fields[1], price, fields[0]);
                     this.setItems(newPony);
                 }
-
             }
 
         } catch (FileNotFoundException e) {
             throw new RuntimeException(e);
         }
-
 
     }
     public void getPurchaseMenu(){
@@ -124,8 +122,6 @@ public class Vending {
 
 
     public void getPurchaseMenuUserInput(){
-
-
 
         String purchaseMenuTwo = userInput.nextLine();
                 if (purchaseMenuTwo.equals("1")){
@@ -153,14 +149,14 @@ public class Vending {
                                     isTargetProduct = true;
                                     System.out.println();
                                     transaction.dispense(item);// dispenses Item and updates balance in machine
+                                    getPurchaseMenu();
+
                                     //Sell them the toy
                                 } else if(item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity == 0 ){
                                     System.out.println("The item is sold out.");
                                     System.out.println("Please select another item!");
                                     getPurchaseMenu();
-
                                 }
-
                             }
                             if (!isTargetProduct) {
                                 System.out.println("Not a valid input, please try again!");
@@ -168,7 +164,6 @@ public class Vending {
                             }
                             getPurchaseMenu();
                         }
-
                 }
                 if (purchaseMenuTwo.equals("3")){
                     //Selecting "(3) Finish Transaction" allows the customer to complete the
