@@ -126,6 +126,9 @@ public class Vending {
                 }
                 if (purchaseMenuTwo.equals("2")){
                     System.out.println("Please enter your selection:");
+                    for(Items item: this.items){
+                        System.out.println(item.position + "| " +  item.getName() + " " + item.getPrice() );
+                    }
                     String userPurchase = userInput.nextLine();
 
                         boolean isTargetProduct = false;
