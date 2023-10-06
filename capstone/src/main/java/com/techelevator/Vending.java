@@ -151,6 +151,8 @@ public class Vending {
                                 if (item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity != 0 ) {
                                     System.out.println(item.getPosition()+ " " + item.getName()+" " + item.getPrice());
                                     isTargetProduct = true;
+                                    System.out.println();
+                                    transaction.dispense(item);// dispenses Item and updates balance in machine
                                     //Sell them the toy
                                 } else if(item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity == 0 ){
                                     System.out.println("The item is sold out.");

@@ -128,7 +128,9 @@ public class Transaction {
         System.out.println("Dispensing Item");
         System.out.println(item.getReturnMessage());
         item.quantity --;
+        this.amountInMachine = this.amountInMachine.subtract(item.getPrice());//
         //writer.println();
+        // this is currently working and does out put and dispense item to console as well as update machine balance
 
 
     }
