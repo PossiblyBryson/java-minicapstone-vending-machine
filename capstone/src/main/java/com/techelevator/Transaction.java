@@ -4,19 +4,21 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.util.Date;
+import java.util.Scanner;
 
 public class Transaction {
     private String name;
     private LocalDate date;
     private LocalTime time;
-    private BigDecimal total;
-    private BigDecimal tDelta;
-    private BigDecimal change;
-    private BigDecimal amountFed;
+    private BigDecimal balance = new BigDecimal(0);
+    private BigDecimal tDelta=new BigDecimal(0)  ;
+    private BigDecimal change = new BigDecimal(0);
+    private BigDecimal amountFed = new BigDecimal(0);
+
+
+
 
     public BigDecimal getAmountFed() {
         return amountFed;
@@ -28,10 +30,11 @@ public class Transaction {
 
     public BigDecimal gettDelta() {
         return tDelta;
+
     }
 
-    public BigDecimal getTotal() {
-        return total;
+    public BigDecimal getBalance() {
+        return balance;
     }
 
     public LocalDate getDate() {
@@ -70,24 +73,54 @@ public class Transaction {
         this.time = LocalTime.now();
     }
 
-    public void setTotal(BigDecimal total) {
-        this.total = total;
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
     }
-    public void feedMoney(BigDecimal amountFed){
-        this.amountFed.add(amountFed);
+
+
+
+
+
+        PrintWriter writer;
+
+
+
+
+
+
+    public void feedMoney(){
+        Scanner userInput = new Scanner(System.in);
+
+        System.out.println("Please enter amount to be Fed");
+        String amountInput = userInput.nextLine();
+        BigDecimal amountToBeFed = new BigDecimal(amountInput);
+
+        this.amountFed = this.getAmountFed().add(amountToBeFed);
+        // writer.println(this.getTime() + " " + this.getDate() + " ");
+        System.out.println(getAmountFed());
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/log.txt", true));
+            writer.println(this.getDate() + " " + this.getTime() + " FEED MONEY: " + this.amountFed + " " + this.getBalance());
+        } catch (IOException e) {
+            throw new RuntimeException("Do not pass go");
+
+        }
 
     }
     public void dispense(Items item){
         System.out.println("Dispensing Item");
         System.out.println(item.getReturnMessage());
         item.quantity --;
+        //writer.println();
 
     }
     public void giveChange(){
 
 
     }
+
     public void addToActionLog(){
+
 
 
     }

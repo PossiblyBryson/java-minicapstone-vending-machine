@@ -118,11 +118,17 @@ public class Vending {
             System.out.println("(3) Finish Transaction");
             getPurchaseMenuUserInput();
     }
+    Transaction transaction = new Transaction();
+
     public void getPurchaseMenuUserInput(){
+
+
 
         String purchaseMenuTwo = userInput.nextLine();
                 if (purchaseMenuTwo.equals("1")){
                     //Feed money into the machine in whole dollar amounts
+                    transaction.feedMoney();
+
                 }
                 if (purchaseMenuTwo.equals("2")){
                     System.out.println("Please enter your selection:");
@@ -145,6 +151,7 @@ public class Vending {
                                     System.out.println("The item is sold out.");
                                     System.out.println("Please select another item!");
                                     getPurchaseMenu();
+
                                 }
 
                             }
