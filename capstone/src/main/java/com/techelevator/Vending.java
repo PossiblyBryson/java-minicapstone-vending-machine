@@ -148,8 +148,18 @@ public class Vending {
                                     System.out.println(item.getPosition()+ " " + item.getName()+" " + item.getPrice());
                                     isTargetProduct = true;
                                     System.out.println();
-                                    transaction.dispense(item);// dispenses Item and updates balance in machine
-                                    getPurchaseMenu();
+
+                                    //this compares the amount of money in the machine to the items price if they have enough it dispenses the item
+                                    int comparisonResult = transaction.getAmountInMachine().compareTo(item.getPrice());
+                                    if(comparisonResult >= 0){
+                                        transaction.dispense(item);// dispenses Item and updates balance in machine
+                                        getPurchaseMenu();
+                                    }else {// if they dont have enough in the machine it lets them know and kicks them back to the purchase menu
+                                        System.out.println("Please add more money");
+                                        getPurchaseMenu();
+                                    }
+
+
 
                                     //Sell them the toy
                                 } else if(item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity == 0 ){

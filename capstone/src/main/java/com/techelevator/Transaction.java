@@ -126,6 +126,7 @@ public class Transaction {
     }
     public void dispense(Items item){
         System.out.println("Dispensing Item");
+        System.out.println(item.getName() + " " + item.getPrice() + " Your current balance in the machine is: " + getAmountInMachine());
         System.out.println(item.getReturnMessage());
         item.quantity --;
         this.amountInMachine = this.amountInMachine.subtract(item.getPrice());//
