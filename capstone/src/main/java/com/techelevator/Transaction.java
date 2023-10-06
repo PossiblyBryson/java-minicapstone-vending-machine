@@ -6,16 +6,24 @@ import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 
 public class Transaction {
     private String name;
-    private LocalDate date;
-    private LocalTime time;
+    private LocalDate date = LocalDate.now();
+    private LocalTime time = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
     private BigDecimal balance = new BigDecimal(0);
-    private BigDecimal tDelta=new BigDecimal(0)  ;
+    private BigDecimal tDelta = new BigDecimal(0);
     private BigDecimal change = new BigDecimal(0);
     private BigDecimal amountFed = new BigDecimal(0);
+    private BigDecimal amountInMachine = new BigDecimal(0);
+
+
+    public BigDecimal getAmountInMachine(){
+        return this.amountInMachine;
+    }
+
 
 
 
@@ -65,7 +73,7 @@ public class Transaction {
         this.name = name;
     }
 
-    public void settDelta(BigDecimal tDelta) {
+    public void settDelta( ) {
         this.tDelta = tDelta;
     }
 
@@ -81,7 +89,7 @@ public class Transaction {
 
 
 
-        PrintWriter writer;
+
 
 
 
@@ -94,13 +102,16 @@ public class Transaction {
         System.out.println("Please enter amount to be Fed");
         String amountInput = userInput.nextLine();
         BigDecimal amountToBeFed = new BigDecimal(amountInput);
+        tDelta = (amountFed.subtract(amountToBeFed)).abs();
+        this.amountInMachine = this.amountInMachine.add(amountFed);
 
         this.amountFed = this.getAmountFed().add(amountToBeFed);
         // writer.println(this.getTime() + " " + this.getDate() + " ");
         System.out.println(getAmountFed());
+
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/log.txt", true));
-            writer.println(this.getDate() + " " + this.getTime() + " FEED MONEY: " + this.amountFed + " " + this.getBalance());
+            writer.println(this.getDate() + " " + this.getTime() + " FEED MONEY: " + this.getAmountFed() + " " + this.getAmountInMachine());
             writer.flush();// testing
         } catch (IOException e) {
             throw new RuntimeException("Do not pass go");
@@ -113,6 +124,7 @@ public class Transaction {
         System.out.println(item.getReturnMessage());
         item.quantity --;
         //writer.println();
+
 
     }
     public void giveChange(){
