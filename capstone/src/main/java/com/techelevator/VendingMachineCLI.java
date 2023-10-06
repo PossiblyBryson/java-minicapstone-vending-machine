@@ -16,7 +16,8 @@ public class VendingMachineCLI {
 	public void run() {
 		Scanner userInput = new Scanner(System.in);
 		Vending ourVending = new Vending();
-		ourVending.getMainMenu();
+		ourVending.createItems();
+		ourVending.getWelcomeMenu();
 		String mainMenuOption = userInput.nextLine();
 		//Display vending machine items
 

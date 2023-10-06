@@ -10,6 +10,8 @@ import java.util.Scanner;
 public class Vending {
     private List<Items> items = new ArrayList<>();
     private List<Currency> Currency = new ArrayList<>();
+    Scanner userInput = new Scanner(System.in);
+
 
     public void setItems(Items item) {
         items.add(item);
@@ -23,30 +25,40 @@ public class Vending {
         this.Currency = currency;
     }
     public Vending(){}
-
-    public void getMainMenu(){
+    public void getWelcomeMenu(){
+        System.out.println("Welcome to the Vendo-Matic 800!");
+        System.out.println("Press E to enter");
+        String welcomeMenuOption = userInput.nextLine();
+        if(welcomeMenuOption.toLowerCase().equals("e")){
+            this.getMainMenu();
+        }else{
+            System.out.println("Try again");
+            getWelcomeMenu();
+        }
+    }
+    public void getMainMenu(){;
         System.out.println("(1) Display Vending Machine Items");
         System.out.println("(2) Purchase");
         System.out.println("(3) Exit");
-        this.getUserInput(); //calls the getUserInput method
+        this.getMainMenuUserInput(); //calls the getUserInput method
 
     }
-    public void getUserInput(){
-        Scanner userInput = new Scanner(System.in);
+    public void getMainMenuUserInput(){
         String mainMenuOption = userInput.nextLine();
         if (mainMenuOption.equals("1")) {
            // outs puts the inventory list to the user
-            this.createItems();
             for(Items item: this.items){
-                System.out.println(item.position + " " +  item.getName() + " " + item.getPrice() );
+                System.out.println(item.position + "| " +  item.getName() + " " + item.getPrice() );
             }
 
         } else if (mainMenuOption.equals("2")) {
-            //purchase menu
             System.out.println("You entered 2");
+            getPurchaseMenu();
 
         } else if (mainMenuOption.equals("3")) {
             System.out.println("You entered 3");
+            System.out.println();
+            getWelcomeMenu();
 
         } else if (mainMenuOption.equals("4")) {
             System.out.println("You entered 4");
@@ -98,6 +110,58 @@ public class Vending {
         }
 
 
+    }
+    public void getPurchaseMenu(){
+        //Current Money Provided displays here
+            System.out.println("(1) Feed Money");
+            System.out.println("(2) Select Product");
+            System.out.println("(3) Finish Transaction");
+            getPurchaseMenuUserInput();
+    }
+    public void getPurchaseMenuUserInput(){
+
+        String purchaseMenuTwo = userInput.nextLine();
+                if (purchaseMenuTwo.equals("1")){
+                    //Feed money into the machine in whole dollar amounts
+                }
+                if (purchaseMenuTwo.equals("2")){
+                    System.out.println("Please enter your selection:");
+                    String userPurchase = userInput.nextLine();
+
+                        boolean isTargetProduct = false;
+                        boolean isSoldOut = false;
+
+                        while (!isTargetProduct) {
+
+                            for (Items item : this.items) {
+                                if (item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity != 0 ) {
+                                    System.out.println(item.getName()+" "+item.getPosition()+" "+item.getPrice());
+                                    isTargetProduct = true;
+                                    //Sell them the toy
+                                } else if(item.getPosition().equals(userPurchase.toUpperCase()) && item.quantity == 0 ){
+                                    System.out.println("The item is sold out.");
+                                    System.out.println("Please select another item!");
+                                    getPurchaseMenu();
+                                }
+
+                            }
+                            if (!isTargetProduct) {
+                                System.out.println("Not a valid input, please try again!");
+                                getPurchaseMenu();
+                            }
+                            getPurchaseMenu();
+                        }
+
+                }
+                if (purchaseMenuTwo.equals("3")){
+                    //Selecting "(3) Finish Transaction" allows the customer to complete the
+                    //transaction and receive any remaining change.
+                    //
+                    //The machine returns the customer's money using nickels, dimes, and quarters
+                    //(using the smallest amount of coins possible).
+                    //The machine's current balance updates to $0 remaining.
+                    getMainMenu();
+                }
     }
 
 }
