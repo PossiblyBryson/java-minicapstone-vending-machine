@@ -101,6 +101,7 @@ public class Transaction {
         try {
             PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/log.txt", true));
             writer.println(this.getDate() + " " + this.getTime() + " FEED MONEY: " + this.amountFed + " " + this.getBalance());
+            writer.flush();// testing
         } catch (IOException e) {
             throw new RuntimeException("Do not pass go");
 
