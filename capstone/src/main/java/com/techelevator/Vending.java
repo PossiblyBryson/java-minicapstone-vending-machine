@@ -1,9 +1,12 @@
 package com.techelevator;
 
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -184,6 +187,38 @@ public class Vending {
                     //(using the smallest amount of coins possible).
                     //The machine's current balance updates to $0 remaining.
                     transaction.giveChange();
+                    System.exit(0);
+                }
+                if(purchaseMenuTwo.equals("4")){
+                    BigDecimal itemsTotal = new BigDecimal(0);
+
+                    for(Items item: items){
+                        if(item.getQuantity() < 5){
+                            BigDecimal itemsSoldCost = item.getPrice().multiply(new BigDecimal(5-item.quantity));
+                            itemsTotal= itemsTotal.add(itemsSoldCost);
+                            try {
+                                PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/SalesLog.txt", true));
+                                writer.println(item.getName() + " | " + item.getQuantity());
+                                writer.flush();// testing
+                            } catch (IOException e) {
+                                throw new RuntimeException("Do not pass go");
+
+                            }
+
+                        }
+                    }
+                    try {
+                        PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/SalesLog.txt", true));
+                        writer.println();
+                        writer.println("Total Sales: " + itemsTotal);
+                        writer.println("Transaction for " + LocalTime.now().truncatedTo(ChronoUnit.SECONDS) + " " + LocalDate.now());
+                        writer.println();
+                        writer.flush();// testing
+                    } catch (IOException e) {
+                        throw new RuntimeException("Do not pass go");
+
+                    }
+
                 }
     }
 

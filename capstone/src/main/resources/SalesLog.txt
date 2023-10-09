@@ -1,0 +1,17 @@
+Yellow Duck | 4
+Pegasus Pony | 4
+Rainbow Horse | 4
+
+Total Sales: 0
+Yellow Duck | 2
+Rainbow Horse | 4
+
+Total Sales: -4.05
+Bat Duck | 3
+
+Total Sales: 4.00
+Horse | 3
+Rainbow Horse | 3
+
+Total Sales: 4.50
+Transaction for 14:42:03.131722800 2023-10-09

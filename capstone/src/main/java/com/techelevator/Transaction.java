@@ -149,6 +149,7 @@ public class Transaction {
 
 
     }
+
     public void giveChange(){
         int amountOfQuarters = 0;
         int amountOfDimes = 0;
