@@ -50,6 +50,7 @@ public class Vending {
             for(Items item: this.items){
                 System.out.println(item.position + "| " +  item.getName() + " " + item.getPrice() );
             }
+            getMainMenu();
 
         } else if (mainMenuOption.equals("2")) {
             System.out.println("You entered 2");
@@ -58,7 +59,7 @@ public class Vending {
         } else if (mainMenuOption.equals("3")) {
             System.out.println("You entered 3");
             System.out.println();
-            getWelcomeMenu();
+            transaction.giveChange();
 
         } else if (mainMenuOption.equals("4")) {
             System.out.println("You entered 4");
@@ -182,7 +183,7 @@ public class Vending {
                     //The machine returns the customer's money using nickels, dimes, and quarters
                     //(using the smallest amount of coins possible).
                     //The machine's current balance updates to $0 remaining.
-                    getMainMenu();
+                    transaction.giveChange();
                 }
     }
 
