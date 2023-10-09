@@ -153,23 +153,32 @@ public class Transaction {
         int amountOfQuarters = 0;
         int amountOfDimes = 0;
         int amountOfNickels = 0;
-
+        BigDecimal amountReturned = amountInMachine;
         while (amountInMachine.compareTo(BigDecimal.ZERO) > 0){
                 if(amountInMachine.compareTo(QuarterThreshold)>=0){
                 amountInMachine = amountInMachine.subtract(QuarterThreshold);
                 amountOfQuarters++;
             }
             else if (amountInMachine.compareTo(DimeThreshold)>=0) {
-                amountInMachine.subtract(DimeThreshold);
+                amountInMachine = amountInMachine.subtract(DimeThreshold);
                 amountOfDimes++;
             } else if (amountInMachine.compareTo(NickelThreshold)>=0){
-                amountInMachine.subtract(NickelThreshold);
+                amountInMachine = amountInMachine.subtract(NickelThreshold);
                 amountOfNickels++;
                 }
             //print transaction to print writer
         }
+
         System.out.println("You have been returned "+amountOfQuarters+" quarters, "+amountOfDimes+" dimes, and "+amountOfNickels+" nickels.");
         System.out.println("Exiting program");
+        try {
+            PrintWriter writer = new PrintWriter(new FileWriter("C:/Users/Student/workspace/java-minicapstonemodule1-team2/capstone/src/main/resources/log.txt", true));
+            writer.println(this.getDate() + " " + this.getTime() + " GIVE CHANGE: " + amountReturned + " " + this.getAmountInMachine());
+            writer.flush();// testing
+        } catch (IOException e) {
+            throw new RuntimeException("Do not pass go");
+
+        }
     }
 
     public void addToActionLog(){
